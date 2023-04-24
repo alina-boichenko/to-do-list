@@ -4,7 +4,14 @@
 
 {% block content %}
   <div class="container">
-    <h1>Tags</h1>
+    <div class="row">
+      <div class="col-lg-10">
+        <h1>Tags</h1>
+      </div>
+      <div class="col-lg-2">
+        <a class="btn btn-info" href="{% url 'to_do:tag-create' %}">Create</a>
+      </div>
+    </div>
     {% if tag_list %}
 
       <table class="table">
