@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Home</title> {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>TODO list</h1>
+
+    {% for task in task_list %}
+      <div class="card">
+        <div class="card-body">
+          <h2>{{ task.content }}
+            {% if task.status %}
+              <span class="text-success">Done</span>
+            {% else %}
+              <span class="text-danger">Not done</span>
+            {% endif %}
+          </h2>
+
+          <p>
+            Created: <i>{{ task.created_date }}</i>
+            {% if task.status %}
+              <span class="text-danger">Deadline: <i>{{ task.deadline_date }}</i></span>
+            {% endif %}
+          </p>
+          <div class="text-muted">
+            {% if task.tags.all %}
+              <ul class="list-inline">
+                <li class="list-inline-item">Tags:</li>
+                {% for tag in task.tags.all %}
+                  <li class="list-inline-item">{{ tag.name }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              no tags!
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+{% endblock %}
