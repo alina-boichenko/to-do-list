@@ -1,12 +1,19 @@
-from django.shortcuts import render
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView
 
+from to_do.forms import TaskForms
 from to_do.models import Task, Tag
 
 
 class TaskListView(ListView):
     model = Task
     template_name = "to_do/task_list.html"
+
+
+class TaskCreateView(CreateView):
+    form_class = TaskForms
+    template_name = "to_do/task_form.html"
+    success_url = reverse_lazy("to_do:task-list")
 
 
 class TagListView(ListView):
