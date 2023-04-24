@@ -31,3 +31,9 @@ class TagCreateView(CreateView):
     model = Tag
     fields = "__all__"
     success_url = reverse_lazy("to_do:tag-list")
+
+
+class TagUpdateView(UpdateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("to_do:tag-list")
