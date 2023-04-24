@@ -6,6 +6,7 @@ from to_do.views import (
     TaskUpdateView,
     TagListView,
     TagCreateView,
+    TagUpdateView,
 )
 
 urlpatterns = [
@@ -14,6 +15,7 @@ urlpatterns = [
     path("<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
     path("tags/", TagListView.as_view(), name="tag-list"),
     path("tags/create/", TagCreateView.as_view(), name="tag-create"),
+    path("tags/<int:pk>/update", TagUpdateView.as_view(), name="tag-update"),
 ]
 
 app_name = "to_do"
