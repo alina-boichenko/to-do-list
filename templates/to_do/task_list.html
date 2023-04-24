@@ -37,9 +37,13 @@
                 {% for tag in task.tags.all %}
                   <li class="list-inline-item">{{ tag.name }}</li>
                 {% endfor %}
+                <li class="list-inline-item"><a href="{% url 'to_do:task-update' pk=task.pk %}">Update</a></li>
               </ul>
             {% else %}
-              no tags!
+              <ul class="list-inline">
+                <li class="list-inline-item">no tags!</li>
+                <li class="list-inline-item"><a href="{% url 'to_do:task-update' pk=task.pk %}">Update</a></li>
+              </ul>
             {% endif %}
           </div>
 
