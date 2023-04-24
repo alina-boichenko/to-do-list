@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.TextField(max_length=63)),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("content", models.TextField()),
+                ("content", models.CharField(max_length=255)),
                 ("created_date", models.DateTimeField(auto_now_add=True)),
                 ("deadline_date", models.DateTimeField(blank=True, null=True)),
                 ("status", models.BooleanField(default=False)),
