@@ -19,3 +19,9 @@ class TaskCreateView(CreateView):
 class TagListView(ListView):
     model = Tag
     template_name = "to_do/tag_list.html"
+
+
+class TagCreateView(CreateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("to_do:tag-list")
