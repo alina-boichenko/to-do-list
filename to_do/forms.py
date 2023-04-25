@@ -13,7 +13,6 @@ class TaskForms(forms.ModelForm):
     )
     deadline_date = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-        initial=timezone.now().strftime('%Y-%m-%dT%H:%M'),
         required=False
     )
     status = forms.BooleanField(label="Done", required=False)
@@ -25,7 +24,7 @@ class TaskForms(forms.ModelForm):
 
     def clean_deadline_date(self):
         deadline_date = self.cleaned_data["deadline_date"]
-        if deadline_date < timezone.now():
+        if deadline_date and deadline_date < timezone.now():
             raise ValidationError(
                 "The deadline date must be after the created date"
             )
