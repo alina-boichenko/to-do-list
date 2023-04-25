@@ -1,4 +1,6 @@
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from to_do.forms import TaskForms
@@ -25,6 +27,21 @@ class TaskUpdateView(UpdateView):
 class TaskDeleteView(DeleteView):
     model = Task
     success_url = reverse_lazy("to_do:task-list")
+
+
+class ChangeTaskStatusView(View):
+    def post(self, request, pk):
+        task = Task.objects.get(pk=pk)
+
+        if task.status is True:
+            task.status = False
+        else:
+            task.status = True
+        task.save()
+
+        return HttpResponseRedirect(
+            redirect_to=reverse_lazy("to_do:task-list")
+        )
 
 
 class TagListView(ListView):
