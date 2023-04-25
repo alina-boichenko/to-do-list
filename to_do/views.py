@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
@@ -9,6 +9,7 @@ from to_do.models import Task, Tag
 
 class TaskListView(ListView):
     model = Task
+    queryset = Task.objects.prefetch_related("tags")
     template_name = "to_do/task_list.html"
 
 
@@ -33,14 +34,11 @@ class ChangeTaskStatusView(View):
     def post(self, request, pk):
         task = Task.objects.get(pk=pk)
 
-        if task.status is True:
-            task.status = False
-        else:
-            task.status = True
+        task.status = not task.status
         task.save()
 
         return HttpResponseRedirect(
-            redirect_to=reverse_lazy("to_do:task-list")
+            redirect_to=reverse("to_do:task-list")
         )
 
 
