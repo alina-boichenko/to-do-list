@@ -1,0 +1,7 @@
+bootstrap4==0.1.0
+Django==4.2
+flake8==6.0.0
+pyflakes==3.0.1
+sqlparse==0.4.4
+crispy-bootstrap4==2022.1
+django-crispy-forms==2.0
