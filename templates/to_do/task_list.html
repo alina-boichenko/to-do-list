@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Home</title> {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10">
+        <h1>TODO list</h1>
+      </div>
+      <div class="col-lg-2">
+        <a class="btn btn-info" href="{% url 'to_do:task-create' %}">Create</a>
+      </div>
+    </div>
+
+    {% for task in task_list %}
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-9">
+              <h2>{{ task.content }}
+                {% if task.status %}
+                  <span class="text-success">Done</span>
+                {% else %}
+                  <span class="text-danger">Not done</span>
+                {% endif %}
+              </h2>
+
+              <p>
+                Created: <i>{{ task.created_date }}</i>
+                {% if task.deadline_date %}
+                  <span class="text-danger">Deadline: <i>{{ task.deadline_date }}</i></span>
+                {% endif %}
+              </p>
+              <div class="text-muted">
+                {% if task.tags.all %}
+                  <ul class="list-inline">
+                    <li class="list-inline-item">Tags:</li>
+                    {% for tag in task.tags.all %}
+                      <li class="list-inline-item">{{ tag.name }}</li>
+                    {% endfor %}
+                    <li class="list-inline-item"><a href="{% url 'to_do:task-update' pk=task.pk %}">Update</a></li>
+                    <li class="list-inline-item"><a href="{% url 'to_do:task-delete' pk=task.pk %}">Delete</a></li>
+                  </ul>
+                {% else %}
+                  <ul class="list-inline">
+                    <li class="list-inline-item">no tags!</li>
+                    <li class="list-inline-item"><a href="{% url 'to_do:task-update' pk=task.pk %}">Update</a></li>
+                    <li class="list-inline-item"><a href="{% url 'to_do:task-delete' pk=task.pk %}">Delete</a></li>
+                  </ul>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              {% if task.status %}
+                <a class="btn btn-secondary" href="{% url 'to_do:task-change-status' pk=task.pk %}">Undo</a>
+              {% else %}
+                <a class="btn btn-success" href="{% url 'to_do:task-change-status' pk=task.pk %}">Complete</a>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+{% endblock %}
